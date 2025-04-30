@@ -874,7 +874,7 @@ void translate_dependency_to_string(
 
   {
   struct depend             *dep;
-  extern struct dependnames  dependnames[];
+//  extern struct dependnames  dependnames[];
   struct dependnames        *dp_name;
 
 

@@ -2828,7 +2828,7 @@ int TMomFinalizeJob2(
       if (strlen(buf)+5 <= sizeof(buf))
         {
         memmove(buf + 5, buf, strlen(buf) + 1);
-        strncpy(buf, "exec ", 5);
+        snprintf(buf, sizeof(buf), "exec ");
         }
       }
 

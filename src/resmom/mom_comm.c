@@ -426,7 +426,9 @@ eventent *event_alloc(
 
   assert(ep);
 
-  memset(ep, 0, sizeof(eventent));
+//  memset(ep, 0, sizeof(eventent));
+  // Proper C++ initialization
+  ep = new eventent();
 
   ep->ee_command = command;
 
@@ -6061,7 +6063,7 @@ void im_request(
   char               **argv = NULL;
   char               **envp = NULL;
   tm_event_t           event = 0;
-  fwdevent             efwd;
+  fwdevent             efwd{};
   unsigned short       sender_port = -1;
   unsigned int         momport = 0;
   char                 log_buffer[LOCAL_LOG_BUF_SIZE+1];
@@ -6070,7 +6072,7 @@ void im_request(
   u_long gettime(resource *);
   u_long getsize(resource *);
 
-  memset(&efwd, 0, sizeof(efwd));
+//  memset(&efwd, 0, sizeof(efwd));
  
   if (version != IM_PROTOCOL_VER)
     {
@@ -8849,10 +8851,13 @@ int run_prologue_scripts(
   /* run local prolog */
   if ((j = run_pelog(PE_PROLOG, path_prologp, pjob, PE_IO_TYPE_ASIS, FALSE)) != 0)
     {
+  char tmp_buf[sizeof(log_buffer)];
+  strncpy(tmp_buf, log_buffer, sizeof(tmp_buf) - 1);
+  tmp_buf[sizeof(tmp_buf) - 1] = '\0';
     snprintf(log_buffer,sizeof(log_buffer),
       "cannot run local prolog '%s': %s (rc: %d)\n",
       path_prologp,
-      log_buffer,
+      tmp_buf,//log_buffer,
       j);
 
     log_event(PBSEVENT_JOB, PBS_EVENTCLASS_JOB, pjob->ji_qs.ji_jobid, log_buffer);
@@ -8865,10 +8870,13 @@ int run_prologue_scripts(
 
   if ((j = run_pelog(PE_PROLOGUSER, path_prologuserp, pjob, PE_IO_TYPE_ASIS, FALSE)) != 0)
     {
+  char tmp_buf[sizeof(log_buffer)];
+  strncpy(tmp_buf, log_buffer, sizeof(tmp_buf) - 1);
+  tmp_buf[sizeof(tmp_buf) - 1] = '\0';
     snprintf(log_buffer,sizeof(log_buffer),
       "cannot run local user prolog '%s': %s (rc: %d)\n",
       path_prologuserp,
-      log_buffer,
+      tmp_buf,//log_buffer,
       j);
 
     log_event(PBSEVENT_JOB,PBS_EVENTCLASS_JOB,pjob->ji_qs.ji_jobid,log_buffer);

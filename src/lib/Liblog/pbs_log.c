@@ -322,7 +322,7 @@ int log_open(
 
   {
   char  buf[PATH_MAX];
-  char  buf2[1024];
+  char  buf2[2048];
   int   fds;
 
   if (log_opened > 0)
@@ -392,12 +392,7 @@ int log_open(
   pthread_mutex_unlock(&log_mutex);
 
   if (log_host_port[0])
-    snprintf(buf2, sizeof(buf2), "Log opened at %s", log_host_port);
-  else
-    snprintf(buf2, sizeof(buf2), "Log opened");
-
-  if (log_host_port[0])
-    snprintf(buf2, sizeof(buf2), "Log opened at %s", log_host_port);
+    snprintf(buf2, sizeof(buf2), "Log opened at %.1008s", log_host_port);
   else
     snprintf(buf2, sizeof(buf2), "Log opened");
 
@@ -954,7 +949,7 @@ void log_close(
     if (msg)
       {
       if (log_host_port[0])
-        snprintf(buf, sizeof(buf), "Log closed at %s", log_host_port);
+        snprintf(buf, sizeof(buf), "Log closed at %.1008s", log_host_port);
       else
         snprintf(buf, sizeof(buf), "Log closed");
 

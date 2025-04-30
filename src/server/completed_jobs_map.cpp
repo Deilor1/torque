@@ -139,6 +139,12 @@ bool completed_jobs_map_class::is_job_id_in_map(
   return(rc);
   }
 
+void *handle_complete_second_time_wrapper(void *arg)
+    {
+        handle_complete_second_time((struct work_task *)arg);
+        return NULL;
+    }
+
 // iterate over the map and remove any jobs
 //   whose completed time has been reached (or exceeded)
 int completed_jobs_map_class::cleanup_completed_jobs(
@@ -211,7 +217,8 @@ int completed_jobs_map_class::cleanup_completed_jobs(
 
       // call with work task structure
       //   will remove job id from map
-      enqueue_threadpool_request((void *(*)(void *))handle_complete_second_time, pnew, task_pool);
+      //enqueue_threadpool_request((void *(*)(void *))handle_complete_second_time, pnew, task_pool);
+      enqueue_threadpool_request(handle_complete_second_time_wrapper, pnew, task_pool);
       }
     }
 

@@ -129,7 +129,7 @@ char * netaddr_long(long ap, char *out)
    */
 char * netaddr(struct sockaddr_in *ap)
   {
-  static char out[80];
+  static char out[128];
   char tmp[80];
 
   if (ap == NULL)
@@ -137,7 +137,7 @@ char * netaddr(struct sockaddr_in *ap)
 
   netaddr_long( ntohl(ap->sin_addr.s_addr), tmp);
 
-  sprintf(out, "%s:%d", tmp, ntohs(ap->sin_port));
+  snprintf(out, sizeof(out), "%s:%d", tmp, ntohs(ap->sin_port));
 
   return out;
   }

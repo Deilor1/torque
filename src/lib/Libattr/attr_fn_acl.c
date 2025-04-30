@@ -500,6 +500,7 @@ int set_allacl(
         }
 
       pas->as_next = pas->as_buf;
+      /* fall through */
 
       /* No break, "Set" falls into "Incr" to add strings */
 

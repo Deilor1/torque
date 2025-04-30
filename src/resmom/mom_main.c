@@ -1067,7 +1067,7 @@ char *conf_res(
     goto done;
     }
 
-  name[i] = '\0';
+  name[i] = 0; //'\0';
 
   for (d = ret_string, resline++;*resline;)
     {
@@ -3544,7 +3544,7 @@ const char *find_signal_name(
 
   struct sig_tbl *psigt;
 
-  extern struct sig_tbl sig_tbl[];
+//  extern struct sig_tbl sig_tbl[];
 
   for (psigt = sig_tbl; psigt->sig_name != NULL; psigt++)
     {

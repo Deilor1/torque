@@ -662,7 +662,7 @@ int validate_socket(
   {
   int            rc = PBSE_NONE;
   char           tmp_buf[LOCAL_LOG_BUF];
-  char           write_buf[1024];
+  char           write_buf[2048];
   char          *read_buf = NULL;
   long long      read_buf_len = 0;
   uid_t          myrealuid;
@@ -704,7 +704,7 @@ int validate_socket(
      * trq_system|trq_port|Validation_type|user|pid|psock|
      */
     mypid = getpid();
-    sprintf(write_buf, "%d|%d|%s|%d|%d|%d|%s|%d|%d|", TRQ_AUTH_CONNECTION, (int)strlen(server_name), server_name, server_port, AUTH_TYPE_IFF, (int)strlen(pwent->pw_name), pwent->pw_name, mypid, parent_client_socket);
+    snprintf(write_buf, sizeof(write_buf), "%d|%d|%s|%d|%d|%d|%s|%d|%d|", TRQ_AUTH_CONNECTION, (int)strlen(server_name), server_name, server_port, AUTH_TYPE_IFF, (int)strlen(pwent->pw_name), pwent->pw_name, mypid, parent_client_socket);
     /*
      * total_length|val
      */

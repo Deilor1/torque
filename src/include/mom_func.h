@@ -112,6 +112,8 @@ struct sig_tbl
   int          sig_val;
   };
 
+extern struct sig_tbl sig_tbl[];
+
 #define NUM_LCL_ENV_VAR  10
 #define MOM_OBIT_RETRY   -5
 

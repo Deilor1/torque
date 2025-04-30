@@ -219,7 +219,7 @@ static int       stackDepth_g = 0;  // see readValue()
 
 namespace Json {
 
-typedef std::auto_ptr<CharReader>   CharReaderPtr;
+typedef std::unique_ptr<CharReader>   CharReaderPtr;
 
 // Implementation of class Features
 // ////////////////////////////////
@@ -1276,6 +1276,7 @@ bool OurReader::readToken(Token& token) {
     ok = readStringSingleQuote();
     break;
     } // else continue
+    [[fallthrough]];
   case '/':
     token.type_ = tokenComment;
     ok = readComment();
@@ -3778,7 +3779,7 @@ Value& Path::make(Value& root) const {
 
 namespace Json {
 
-typedef std::auto_ptr<StreamWriter>   StreamWriterPtr;
+typedef std::unique_ptr<StreamWriter>   StreamWriterPtr;
 
 static bool containsControlCharacter(const char* str) {
   while (*str) {

@@ -225,6 +225,8 @@ struct dependnames
   const char *name;
   };
 
+extern struct dependnames dependnames[];
+
 /*
  * Warning: the relation between the numbers assigned to after* and before*
  * is critical.
